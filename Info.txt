@@ -1,0 +1,10 @@
+para puxar repo
+git clone https://github.com/juliosant/AEDII.git
+
+
+para  mandar alterações
+git add *
+git commit -m "msg"
+git push -u origin master
+
+

@@ -1,4 +1,4 @@
-/*[1]*/
+/* [0] */
 
 class Node{
     constructor(key, parent = null, leftChild = null, rightChild = null){
@@ -10,6 +10,7 @@ class Node{
     }
 
 /*--------------------------------------XXX-------------------------------------------*/
+/* [1] */
 
     hasLeftChild(){ 
         return this.leftChild != null;
@@ -21,11 +22,37 @@ class Node{
     }/* Se caso existir nó-filho à direita, retornará true. se não houver nó à esquerda, 
     retornará false.  */
 
+    hasBothChild(){
+        return this.hasLeftChild() && this.hasRightChild();
+    }
+
+    isLeaf(){
+        if(this.parent != null){
+            return this.leftChild === null && this.rightChild === null;
+        }
+    }
+
+    maximum(){
+        if(this.hasRightChild())
+            this.rightChild.maximum();
+        
+        else
+            console.log(this.key);
+    }
+
+    minimum(){
+        if(this.hasLeftChild())
+            this.leftChild.minimum();
+        
+        else
+            console.log(this.key);
+
+    }
 /*--------------------------------------XXX-------------------------------------------*/
 
 /*--------------------------------------XXX-------------------------------------------*/
+/* [2] */
 
-/*[2]*/
     add(node){
         if(node.key < this.key){ /*Se chave do nó incrementado for menor que o raiz */
             if(this.hasLeftChild()){
@@ -55,8 +82,7 @@ class Node{
         }
 
     }
-/*--------------------------------------XXX-------------------------------------------*/
-/*--------------------------------------XXX-------------------------------------------*/
+
     saidaTerminal(){ 
         let log = "";
         if(this.parent != undefined)
@@ -73,6 +99,8 @@ class Node{
        return log;
     }
 /*--------------------------------------XXX-------------------------------------------*/
+/* [3] */
+
     preOrder(){
         console.log(this.saidaTerminal());
 
@@ -87,5 +115,60 @@ class Node{
 
     }
 
-}
+    posOrder(){
+        if(this.hasLeftChild()){
+            this.leftChild.posOrder();
+            //console.log(this.saidaTerminal);
+        }
+        if(this.hasRightChild()){
+            this.rightChild.posOrder();
+        }
+        console.log(this.saidaTerminal());
+    }
 
+    inOrder(){
+        if(this.hasLeftChild()){
+            this.leftChild.inOrder();        
+        }
+        if(this.hasRightChild()){
+            console.log(this);
+            this.rightChild.inOrder();
+        }
+        else{
+            console.log(this);
+        }
+    }
+
+    inWidth(){
+        let fila = [10,7,13,12,6,15];
+        fila.push();
+    }
+
+/*--------------------------------------XXX-------------------------------------------*/
+    search(key){
+        if(key === this.key){
+            return this;
+
+        }
+        else{
+            if(key < this.key){
+                if(this.hasLeftChild()){
+                    return this.leftChild.search(key);
+                }
+            }
+            else{
+                if(key > this.key){
+                    if(this.hasRightChild()){
+                        return this.rightChild.search(key);
+                    }
+                }
+            }
+        
+        }
+
+    }
+
+
+    
+
+}

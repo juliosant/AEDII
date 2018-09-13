@@ -1,5 +1,3 @@
-/* [0] */
-
 class Node{
     constructor(key, parent = null, leftChild = null, rightChild = null){
         this.key = key; //"this" serve para armazenar o valor de key, para possível reutilização.
@@ -126,17 +124,19 @@ class Node{
         console.log(this.saidaTerminal());
     }
 
-    inOrder(){
+    inOrder(operation){
         if(this.hasLeftChild()){
-            this.leftChild.inOrder();        
+            this.leftChild.inOrder(operation);        
         }
+        operation.call(this);
+
         if(this.hasRightChild()){
-            console.log(this);
-            this.rightChild.inOrder();
+            this.rightChild.inOrder(operation);
         }
-        else{
-            console.log(this);
-        }
+        
+    }
+    printKey(){
+        console.log(this.key);
     }
 
     inWidth(){
@@ -199,8 +199,8 @@ class Node{
                     this.rightChild.parent = this.leftChild;
                     this.leftChild.rightChild = this.rightChild;
                     this.parent.rightChild = this.leftChild;
-                    this.leftChild = null;
-                    this.rightChild = null;
+                //    this.leftChild = null;
+               //     this.rightChild = null;
                 }
                 else{
                     if(this.isLeftChild()){
@@ -208,12 +208,14 @@ class Node{
                         this.leftChild.parent = this.rightChild;
                         this.rightChild.leftChild = this.leftChild;
                         this.parent.leftChild = this.rightChild;
-                        this.leftChild = null;
-                        this.rightChild = null;
+                     //   this.leftChild = null;
+                     //   this.rightChild = null;
                     }
                 }
-	
+                        this.leftChild = null;
+                        this.rightChild = null;
             }
+            
             else{
 	            if(this.hasLeftChild()){
 	            if(this.isLeftChild()){
@@ -230,7 +232,42 @@ class Node{
 	        }
 	            this.parent = null;
                 }
-            }     
+            }
         }
     }
+
+    sum(){ //<-----------Q5 VP1 2
+        let total = 0;
+        if(this.hasLeftChild()){
+            total += this.leftChild.sum();
+        }
+        if(this.hasRightChild()){
+            total += this.rightChild.sum();
+        }
+        return total += this.key;
+
+    }
 }
+
+function printKey(){
+    console.log(this.key);
+}
+
+let root = null;
+let number = [10,7,13,15,12,6];
+
+number.forEach(function (number) {
+    if (root === null) {
+        root = new Node(number);
+
+    } else {
+        root.add(new Node(number));
+    }
+});
+
+//console.log(root);
+//console.log(root.inOrder(printKey));
+
+console.log(root);
+//console.log(root.sum())
+

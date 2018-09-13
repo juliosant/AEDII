@@ -139,10 +139,23 @@ class Node{
         }
     }
 
-    inWidth(){
-        let fila = [10,7,13,12,6,15];
-        fila.push();
+    breadthFirst(){
+        let vetor = [];
+        vetor .push(this);
+
+        while(vetor.length > 0){
+            let current = vetor.shift();
+            console.log(current.key);
+
+            if(current.hasLeftChild()){
+                vetor.push(current.leftChild);
+            }
+            if(current.hasRightChild()){
+                vetor.push(current.RrightChild);
+            }
+        }
     }
+/*------
 
 /*--------------------------------------XXX-------------------------------------------*/
     search(key){
@@ -189,7 +202,7 @@ class Node{
                   if(this.isRighttChild()){
             	      this.parent.rightChild  = null;
             	      this.parent = null;
-                  }
+                  } 
             }
         }
         else{

@@ -28,6 +28,14 @@ class Node{
         if(this.parent != null){
             return this.leftChild === null && this.rightChild === null;
         }
+    }    
+    
+    isLeftChild(){
+      return this.parent !== null && this.key < this.parent.key;
+    }
+
+    isRightChild(){
+     return this.parent !== null && this.key > this.parent.key;
     }
 
     maximum(){
@@ -135,15 +143,29 @@ class Node{
         }
         
     }
+    
+    breadthFirst(){
+        let vetor = [];
+        vetor .push(this);
+
+        while(vetor.length > 0){
+            let current = vetor.shift();
+            console.log(current.key);
+
+            if(current.hasLeftChild()){
+                vetor.push(current.leftChild);
+            }
+            if(current.hasRightChild()){
+                vetor.push(current.rightChild);
+            }
+        }
+    }
+
     printKey(){
         console.log(this.key);
     }
 
-    inWidth(){
-        let fila = [10,7,13,12,6,15];
-        fila.push();
-    }
-
+    
 /*--------------------------------------XXX-------------------------------------------*/
     search(key){
         if(key === this.key){
@@ -167,21 +189,11 @@ class Node{
         }
 
     }
-
-
-    isLeftChild(){
-      return this.parent !== null && this.key < this.parent.key;
-    }
-
-    isRightChild(){
-     return this.parent !== null && this.key > this.parent.key;
-    }
-
+    
     remove(){
         let founded = this.isLeaf();
         if(founded === true){
             if(this.isLeftChild()){
-                console.log("Sodakk");
             	this.parent.leftChild  = null;
             	this.parent = null;
             }
@@ -199,8 +211,6 @@ class Node{
                     this.rightChild.parent = this.leftChild;
                     this.leftChild.rightChild = this.rightChild;
                     this.parent.rightChild = this.leftChild;
-                //    this.leftChild = null;
-               //     this.rightChild = null;
                 }
                 else{
                     if(this.isLeftChild()){
@@ -208,12 +218,10 @@ class Node{
                         this.leftChild.parent = this.rightChild;
                         this.rightChild.leftChild = this.leftChild;
                         this.parent.leftChild = this.rightChild;
-                     //   this.leftChild = null;
-                     //   this.rightChild = null;
                     }
                 }
-                        this.leftChild = null;
-                        this.rightChild = null;
+                this.leftChild = null;
+                this.rightChild = null;
             }
             
             else{
@@ -268,6 +276,8 @@ number.forEach(function (number) {
 //console.log(root);
 //console.log(root.inOrder(printKey));
 
-console.log(root);
+//console.log(root);
 //console.log(root.sum())
+
+console.log(root.breadthFirst());
 
